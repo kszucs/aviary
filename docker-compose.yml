@@ -11,6 +11,7 @@ services:
   impala:
     build: .
     image: impala
+    hostname: localhost
     networks:
     - impala-nw
     external_links:
