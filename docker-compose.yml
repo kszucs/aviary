@@ -12,7 +12,7 @@ services:
     build: .
     image: impala
     networks:
-    - impala-nw:
+    - impala-nw
     external_links:
     - postgres
     environment:
