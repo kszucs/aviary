@@ -9,6 +9,8 @@ RUN rpm --import https://archive.cloudera.com/cdh5/redhat/5/x86_64/cdh/RPM-GPG-K
                    postgresql hive hive-jdbc hive-metastore \
                    impala impala-server impala-shell \
                    impala-catalog impala-state-store \
+                   kudu kudu-master kudu-tserver \
+                   kudu-client0 kudu-client-devel \
  && yum clean all \
  && wget https://jdbc.postgresql.org/download/postgresql-9.4.1209.jre7.jar \
       -O /usr/lib/hive/lib/postgresql-9.4.1209.jre7.jar
