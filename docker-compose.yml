@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: postgres
   impala:
     build: .
-    image: impala
+    image: impala:kudu
     hostname: localhost
     networks:
     - impala-nw
@@ -25,6 +25,9 @@ services:
     - 50075:50075
     - 8020:8020
     - 8042:8042
+    # Kudu
+    - 8050:8050
+    - 8051:8051
     # Hive
     - 9083:9083
     # Impala

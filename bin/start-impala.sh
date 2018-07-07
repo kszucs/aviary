@@ -2,6 +2,7 @@
 
 # HDFS
 
+
 if [[ ! -e /var/lib/hadoop-hdfs/cache/hdfs/dfs/name/current ]]; then
   /etc/init.d/hadoop-hdfs-namenode init
 fi
@@ -13,6 +14,8 @@ sudo -u hdfs hdfs dfs -mkdir -p /user/hive/warehouse
 sudo -u hdfs hdfs dfs -mkdir -p /user/impala
 sudo -u hdfs hdfs dfs -mkdir -p /tmp
 sudo -u hdfs hdfs dfs -chmod -R 777 /
+
+sudo ntpdate -q pool.ntp.org
 
 # Hive
 
@@ -51,6 +54,7 @@ supervisorctl start impala-server
 /wait-for-it.sh localhost:21050 -t 120
 /wait-for-it.sh localhost:24000 -t 120
 /wait-for-it.sh localhost:25010 -t 120
+
 rc=$?
 if [ $rc -ne 0 ]; then
     echo -e "\n---------------------------------------"
@@ -58,3 +62,9 @@ if [ $rc -ne 0 ]; then
     echo -e "---------------------------------------"
     exit $rc
 fi
+
+supervisorctl start kudu-master
+supervisorctl start kudu-tserver
+
+/wait-for-it.sh localhost:8050 -t 120
+/wait-for-it.sh localhost:8051 -t 120

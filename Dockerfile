@@ -10,7 +10,7 @@ RUN rpm --import https://archive.cloudera.com/cdh5/redhat/5/x86_64/cdh/RPM-GPG-K
                    impala impala-server impala-shell \
                    impala-catalog impala-state-store \
                    kudu kudu-master kudu-tserver \
-                   kudu-client0 kudu-client-devel \
+                   ntp \
  && yum clean all \
  && wget https://jdbc.postgresql.org/download/postgresql-9.4.1209.jre7.jar \
       -O /usr/lib/hive/lib/postgresql-9.4.1209.jre7.jar
@@ -48,6 +48,7 @@ EXPOSE 50010 50020 50070 50075 50090 50091 50100 50105 \
        10020 19888 9020 \
        21000 21050 22000 23000 24000 25000 25010 25020 \
        26000 28000 \
-       9083
+       9083 \
+       8050 8051
 
 ENTRYPOINT ["supervisord", "-c", "/etc/supervisord.conf", "-n"]
